@@ -18,12 +18,15 @@
         "next": "11.1.0",
         "react": "17.0.2",
         "react-dom": "17.0.2",
+        "styled-components": "^5.3.1",
         "ts-node": "10.2.1",
         "uuid": "8.3.2"
     },
     "devDependencies": {
         "@types/react": "17.0.19",
+        "@types/styled-components": "^5.1.12",
         "@types/uuid": "8.3.1",
+        "babel-plugin-styled-components": "^1.13.2",
         "eslint": "7.32.0",
         "eslint-config-next": "11.1.0",
         "eslint-config-prettier": "8.3.0",
@@ -40,5 +43,8 @@
         "*.{js,json,md}": [
             "yarn format"
         ]
+    },
+    "resolutions": {
+        "styled-components": "^5"
     }
 }

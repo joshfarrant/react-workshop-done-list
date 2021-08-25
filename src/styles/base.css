@@ -1,0 +1,9 @@
+@import './reset.css';
+
+* {
+    font-family: sans-serif;
+}
+
+body {
+    padding: 8px;
+}
