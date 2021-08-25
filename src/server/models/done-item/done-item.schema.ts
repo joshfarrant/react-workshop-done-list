@@ -8,10 +8,9 @@ export const doneItemSchema = new MongooseSchema(
             type: String,
             required: true,
         },
-        doneAt: { type: Date, default: () => Math.floor(Date.now() / 1000) },
+        doneAt: { type: Date, default: Date.now },
     },
     {
-        timestamps: { currentTime: () => Math.floor(Date.now() / 1000) },
         versionKey: false,
         toJSON: {
             transform: ({ _id, title, doneAt }) => ({
