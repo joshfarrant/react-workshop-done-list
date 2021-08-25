@@ -3,7 +3,14 @@ import mongoose, { model } from 'mongoose';
 import { doneItemSchema } from '../models';
 
 export async function connect(): Promise<void> {
+    const dbBaseUrl = process.env.DB_BASE_URL;
     const collectionName = process.env.COLLECTION_NAME;
+
+    if (!dbBaseUrl) {
+        throw new Error(
+            'Missing DB_BASE_URL environment variable. See README.md for instructions of how to fix this error.',
+        );
+    }
 
     if (!collectionName) {
         throw new Error(
@@ -12,7 +19,7 @@ export async function connect(): Promise<void> {
     }
 
     await mongoose.connect(
-        `mongodb+srv://joshfarrant:hellomoto2468@done-list.2zjgq.mongodb.net/${collectionName}?retryWrites=true&w=majority`,
+        `${dbBaseUrl}/${collectionName}?retryWrites=true&w=majority`,
     );
 
     model('DoneItem', doneItemSchema);
