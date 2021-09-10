@@ -1,3 +1,21 @@
+import { useState } from 'react';
+
 export const Home = () => {
-    return <h1>Hello, world!</h1>;
+    const [inputValue, setInputValue] = useState('');
+
+    return (
+        <div>
+            <input
+                value={inputValue}
+                onChange={e => setInputValue(e.target.value)}
+            />
+            <button
+                onClick={() => {
+                    console.debug('inputValue: ', inputValue);
+                }}
+            >
+                Save
+            </button>
+        </div>
+    );
 };
