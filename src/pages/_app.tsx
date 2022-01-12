@@ -4,11 +4,15 @@ import { ReactElement } from 'react';
 
 import '../styles/base.css';
 import { theme } from '../styles';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const App = ({ Component, pageProps }: AppProps): ReactElement => {
+    const queryClient = new QueryClient();
     return (
         <ThemeProvider theme={theme}>
-            <Component {...pageProps} />
+            <QueryClientProvider client={queryClient}>
+                <Component {...pageProps} />
+            </QueryClientProvider>
         </ThemeProvider>
     );
 };
