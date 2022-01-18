@@ -1,6 +1,5 @@
 import { useState, ReactElement } from 'react';
 import { IPokemon } from 'pokeapi-typescript';
-import { useQuery } from 'react-query';
 
 import { StyledContainer } from './pokedex.styled';
 import { Pokemon } from '../..';
@@ -8,10 +7,11 @@ import { getPokemon } from '../../../helpers';
 
 export const Pokedex = (): ReactElement => {
     const [search, setSearch] = useState('');
-
-    const query = useQuery('pokemon', () => getPokemon(search), {
-        enabled: false,
-    });
+    const [pokemon, setPokemon] = useState<IPokemon | null>(null);
+    const fetchPokemon = async (id: string) => {
+        const data = await getPokemon(id);
+        setPokemon(data);
+    };
 
     return (
         <StyledContainer>
@@ -19,7 +19,7 @@ export const Pokedex = (): ReactElement => {
             <form
                 onSubmit={e => {
                     e.preventDefault();
-                    query.refetch();
+                    fetchPokemon(search);
                     setSearch('');
                 }}
             >
@@ -32,10 +32,9 @@ export const Pokedex = (): ReactElement => {
                 />
                 <button type="submit">Search</button>
             </form>
-            {query.isError && <h2>Something went wrong</h2>}
-            {query.isLoading && <h2>Loading...</h2>}
-            {query.data ? (
-                <Pokemon pokemon={query.data} />
+
+            {pokemon ? (
+                <Pokemon pokemon={pokemon} />
             ) : (
                 <h2>Search for a pokemon</h2>
             )}
